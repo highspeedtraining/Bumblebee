@@ -1,19 +1,16 @@
-﻿using System;
-using System.Drawing.Imaging;
-using System.IO;
-
-using Bumblebee.Extensions;
+﻿using Bumblebee.Extensions;
 using Bumblebee.Implementation;
 using Bumblebee.Interfaces;
-
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.Extensions;
+using System;
+using System.IO;
 
 namespace Bumblebee.Setup
 {
 	public class Session : IDisposable
 	{
-		private static readonly Type PageInterfaceType = typeof (IPage);
+		private static readonly Type PageInterfaceType = typeof(IPage);
 
 		private IBlock _currentBlock;
 
@@ -65,13 +62,13 @@ namespace Bumblebee.Setup
 		/// <returns></returns>
 		public virtual TBlock CurrentBlock<TBlock>() where TBlock : IBlock
 		{
-			var type = typeof (TBlock);
+			var type = typeof(TBlock);
 
-			IBlock result = default (TBlock);
+			IBlock result = default(TBlock);
 
 			if (type.IsInstanceOfType(_currentBlock))
 			{
-				result = (TBlock) _currentBlock;
+				result = (TBlock)_currentBlock;
 			}
 			else if (_currentBlock != null)
 			{
@@ -81,8 +78,8 @@ namespace Bumblebee.Setup
 			{
 				result = Block.Create<TBlock>(this);
 			}
-			
-			return (TBlock) result;
+
+			return (TBlock)result;
 		}
 
 		[Obsolete("This method is obsolete.  Due to the nature of lazy loading elements, this is no longer relevant.  For the same reason, we have removed the SpecificBlock type.  Please use the CurrentBlock<TBlock>() method to get your block reference.", error: true)]
@@ -132,20 +129,20 @@ namespace Bumblebee.Setup
 
 			if (String.Equals(extension, ".png", StringComparison.OrdinalIgnoreCase))
 			{
-				screenshot.SaveAsFile(path, ImageFormat.Png);
+				screenshot.SaveAsFile(path, ScreenshotImageFormat.Png);
 			}
 			else if (String.Equals(extension, ".jpg", StringComparison.OrdinalIgnoreCase)
 					|| String.Equals(extension, ".jpeg", StringComparison.OrdinalIgnoreCase))
 			{
-				screenshot.SaveAsFile(path, ImageFormat.Jpeg);
+				screenshot.SaveAsFile(path, ScreenshotImageFormat.Jpeg);
 			}
 			else if (String.Equals(extension, ".bmp", StringComparison.OrdinalIgnoreCase))
 			{
-				screenshot.SaveAsFile(path, ImageFormat.Bmp);
+				screenshot.SaveAsFile(path, ScreenshotImageFormat.Bmp);
 			}
 			else if (String.Equals(extension, ".gif", StringComparison.OrdinalIgnoreCase))
 			{
-				screenshot.SaveAsFile(path, ImageFormat.Gif);
+				screenshot.SaveAsFile(path, ScreenshotImageFormat.Gif);
 			}
 			else
 			{
